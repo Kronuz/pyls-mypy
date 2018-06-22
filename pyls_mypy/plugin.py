@@ -1,3 +1,4 @@
+import os
 import re
 from mypy import api as mypy_api
 from pyls import hookimpl
@@ -30,7 +31,9 @@ def parse_line(line):
 def pyls_lint(document):
     args = ('--incremental',
             '--show-column-numbers',
-            '--command', document.source)
+            '--command', document.source,
+            '--filename', document.path,
+            '--sys-path', os.pathsep.join(document._extra_sys_path))
     report, errors, _ = mypy_api.run(args)
 
     diagnostics = []
