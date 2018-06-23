@@ -31,9 +31,11 @@ def parse_line(line):
 def pyls_lint(document):
     args = ('--incremental',
             '--show-column-numbers',
+            '--follow-imports', 'skip',
             '--command', document.source,
             '--filename', document.path,
-            '--sys-path', os.pathsep.join(document._extra_sys_path))
+            '--sys-path', os.pathsep.join(document._extra_sys_path),
+            '--cache-dir', os.path.expanduser('~/.mypy_cache'))
     report, errors, _ = mypy_api.run(args)
 
     diagnostics = []
