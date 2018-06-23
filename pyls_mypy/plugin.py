@@ -18,9 +18,9 @@ def parse_line(line):
         return {
             'source': 'mypy',
             'range': {
-                'start': {'line': lineno - 1, 'character': offset},
+                'start': {'line': lineno - 1, 'character': offset - 1},
                 # There may be a better solution, but mypy does not provide end
-                'end': {'line': lineno - 1, 'character': offset + 1}
+                'end': {'line': lineno - 1, 'character': offset}
             },
             'message': msg,
             'severity': errno
